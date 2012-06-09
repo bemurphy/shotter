@@ -2,23 +2,15 @@ require 'shellwords'
 require 'callback_handler'
 
 class Camera
-  def shoot(screenshot)
-    @screenshot = screenshot
+  def shoot(url, file_path)
+    url = escape url
+    file_path = escape file_path
 
     shot = IO.popen("casperjs screenshot.js #{url} #{file_path}")
     shot.readlines
     shot.close
 
-    screenshot.shot_complete
-    screenshot.file_path
-  end
-
-  def url
-    escape @screenshot.url
-  end
-
-  def file_path
-    escape @screenshot.file_path
+    file_path
   end
 
   def escape(string)

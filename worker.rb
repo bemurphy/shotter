@@ -5,7 +5,8 @@ Queue.subscribe do |msg|
   uuid = msg[:payload]
   screenshot = Screenshot.from_uuid(uuid)
   camera = Camera.new
-  camera.shoot(screenshot)
+  camera.shoot(screenshot.url, screenshot.file_path)
+  screenshot.shot_complete
 end
 
 
