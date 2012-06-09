@@ -4,18 +4,14 @@ class Queue
   EXCHANGE_NAME = "shotter".freeze
 
   def self.push(uuid)
-    b = Bunny.new(:logging => false)
-    b.start
-    exch = b.exchange(EXCHANGE_NAME)
+    b, exch = setup
     exch.publish(uuid)
     b.stop
   end
 
   def self.pop(options = {})
-    b = Bunny.new(:logging => false)
-    b.start
+    b, exch = setup
     q = b.queue("snapper")
-    exch = b.exchange(EXCHANGE_NAME)
     q.bind(exch)
 
     options = {:consumer_tag => "worker", :timeout => 900}.merge(options)
@@ -25,6 +21,16 @@ class Queue
     end
 
     b.stop
+  end
+
+  protected
+
+  def self.setup
+    bunny = Bunny.new(:logging => false)
+    bunny.start
+    exchange = bunny.exchange(EXCHANGE_NAME)
+
+    [bunny, exchange]
   end
 end
 
