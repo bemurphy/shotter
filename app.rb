@@ -26,7 +26,6 @@ post "/shots.json" do
   screenshot = Screenshot.create_with_uuid(:url => url, :callback_url => params["callback_url"])
   if screenshot.valid?
     screenshot.request_shot
-
     { :status => "ok", :uuid => screenshot.uuid }.to_json
   else
     { :status => "error" }.to_json
