@@ -2,6 +2,7 @@ require 'bunny'
 
 class Queue
   EXCHANGE_NAME = "shotter".freeze
+  QUEUE_NAME = "snapper".freeze
 
   def self.push(uuid)
     b, exch = setup
@@ -11,7 +12,7 @@ class Queue
 
   def self.pop(options = {})
     b, exch = setup
-    q = b.queue("snapper")
+    q = b.queue(QUEUE_NAME)
     q.bind(exch)
 
     options = {:consumer_tag => "worker", :timeout => 900}.merge(options)
