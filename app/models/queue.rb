@@ -3,11 +3,11 @@ require 'bunny'
 class Queue
   EXCHANGE_NAME = "shotter".freeze
 
-  def self.push(data)
+  def self.push(uuid)
     b = Bunny.new(:logging => false)
     b.start
     exch = b.exchange(EXCHANGE_NAME)
-    exch.publish(data)
+    exch.publish(uuid)
     b.stop
   end
 
