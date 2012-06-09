@@ -11,7 +11,7 @@ class Queue
     b.stop
   end
 
-  def self.subscribe(options = {})
+  def self.pop(options = {})
     b = Bunny.new(:logging => false)
     b.start
     q = b.queue("snapper")
@@ -21,7 +21,7 @@ class Queue
     options = {:consumer_tag => "worker", :timeout => 900}.merge(options)
 
     q.subscribe(options) do |msg|
-      yield msg
+      yield msg[:payload]
     end
 
     b.stop

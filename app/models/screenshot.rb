@@ -12,6 +12,15 @@ class Screenshot
   validates_presence_of :url
   validates_presence_of :uuid
 
+  class << self
+    attr_accessor :queue
+  end
+
+  def queue
+    self.class.queue || Queue
+  end
+  private :queue
+
   def self.create_with_uuid(params)
     create({:uuid => SecureRandom.uuid}.merge(params))
   end
@@ -41,7 +50,7 @@ class Screenshot
   end
 
   def request_shot
-    Queue.push(uuid)
+    queue.push(uuid)
   end
 
   def shot_complete
