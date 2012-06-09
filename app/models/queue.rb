@@ -1,3 +1,5 @@
+require 'bunny'
+
 class Queue
   EXCHANGE_NAME = "shotter".freeze
 

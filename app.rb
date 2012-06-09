@@ -2,7 +2,6 @@ require 'sinatra'
 require 'rack/parser'
 require 'json'
 require 'mongoid'
-require 'bunny'
 
 $:.unshift File.join(File.dirname(__FILE__), 'app', 'models')
 Dir[File.dirname(__FILE__) + '/app/models/*.rb'].each {|file| require file }
