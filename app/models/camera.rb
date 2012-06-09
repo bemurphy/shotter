@@ -1,5 +1,4 @@
 require 'shellwords'
-require 'callback_handler'
 
 class Camera
   def shoot(url, file_path)

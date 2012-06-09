@@ -1,5 +1,6 @@
 require 'uri'
 require 'securerandom'
+require 'callback_handler'
 
 class Screenshot
   include Mongoid::Document
