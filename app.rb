@@ -12,9 +12,12 @@ Mongoid.load!("./mongoid.yml")
 use Rack::Parser
 
 get "/shot/:uuid.png" do
-  content_type 'image/png'
-  screenshot = Screenshot.from_uuid(params["uuid"])
-  screenshot.raw_file
+  if screenshot = Screenshot.from_uuid(params["uuid"])
+    content_type 'image/png'
+    screenshot.raw_file
+  else
+    halt 404, "Not found"
+  end
 end
 
 post "/shots.json" do
