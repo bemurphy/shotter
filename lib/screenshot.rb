@@ -31,6 +31,7 @@ class Screenshot
   end
 
   def self.from_uuid(uuid)
+    #TODO raise if the uuid is not locatable
     new(document_class.find_by_uuid(uuid))
   end
 
