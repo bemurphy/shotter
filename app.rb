@@ -1,12 +1,9 @@
 require 'sinatra'
 require 'rack/parser'
 require 'json'
-require 'mongoid'
 
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
-
-Mongoid.load!("./mongoid.yml")
 
 use Rack::Parser
 

@@ -1,3 +1,7 @@
+require 'mongoid'
+
+Mongoid.load!("./mongoid.yml")
+
 class MongoidScreenshotDocument
   include Mongoid::Document
 
